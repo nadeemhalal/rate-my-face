@@ -6,7 +6,15 @@ import type { FaceAnalysis } from '@/types/analysis';
 // Required for Cloudflare Pages — runs on the edge runtime
 export const runtime = 'edge';
 
-const client = new Anthropic();
+// Lazy-initialize the client so a missing API key doesn't crash the worker
+// on startup (which would break all routes including the homepage)
+let _client: Anthropic | null = null;
+function getClient(): Anthropic {
+  if (!_client) {
+    _client = new Anthropic();
+  }
+  return _client;
+}
 
 // Simple in-memory rate limiter — max 10 req/min per IP
 // On Cloudflare edge this is best-effort (resets per isolate) — fine for a demo
@@ -63,7 +71,7 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const response = await client.messages.create({
+    const response = await getClient().messages.create({
       model: 'claude-sonnet-4-6',
       max_tokens: 1024,
       system: getSystemPrompt(),
