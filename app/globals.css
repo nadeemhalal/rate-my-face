@@ -1,0 +1,84 @@
+@import "tailwindcss";
+
+@theme {
+  --color-dark-bg: #0a0a0f;
+  --color-surface: #0d0d18;
+  --color-surface-2: #131325;
+  --color-border: #1a1a2e;
+  --color-cyan: #00f5ff;
+  --color-cyan-dim: #00f5ff40;
+  --color-pink: #ff2d78;
+  --color-pink-dim: #ff2d7840;
+  --color-text-muted: #5a6480;
+  --font-space: var(--font-space-mono);
+  --font-heading: var(--font-syne);
+}
+
+@keyframes scanline {
+  0% {
+    transform: translateY(-10%);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(110%);
+    opacity: 0;
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes glow-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 6px var(--color-cyan-dim);
+  }
+  50% {
+    box-shadow: 0 0 18px var(--color-cyan), 0 0 32px var(--color-cyan-dim);
+  }
+}
+
+@keyframes decrypt {
+  0% {
+    opacity: 0;
+    filter: blur(6px);
+    letter-spacing: 0.4em;
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    letter-spacing: normal;
+  }
+}
+
+@keyframes bar-fill {
+  from {
+    width: 0%;
+  }
+}
+
+body {
+  background-color: var(--color-dark-bg);
+  color: #e2e8f0;
+  font-family: var(--font-space-mono), 'Courier New', monospace;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-dark-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 2px;
+}
