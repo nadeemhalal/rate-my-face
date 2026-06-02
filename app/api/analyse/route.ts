@@ -3,10 +3,13 @@ import Anthropic from '@anthropic-ai/sdk';
 import { getSystemPrompt } from '@/lib/analysePrompt';
 import type { FaceAnalysis } from '@/types/analysis';
 
+// Required for Cloudflare Pages — runs on the edge runtime
+export const runtime = 'edge';
+
 const client = new Anthropic();
 
 // Simple in-memory rate limiter — max 10 req/min per IP
-// Note: resets on serverless cold start; good enough for a demo
+// On Cloudflare edge this is best-effort (resets per isolate) — fine for a demo
 const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
 
 function checkRateLimit(ip: string): boolean {

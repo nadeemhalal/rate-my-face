@@ -42,15 +42,33 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
-## Deployment
+## Deployment — Cloudflare Pages
 
-Deploy to the **company Vercel team account** only. This project handles no real user data, but follow standard practice — do not deploy to personal Vercel accounts or unapproved hosts.
+### Option A: Connect via GitHub (recommended)
+
+1. Go to [Cloudflare Pages](https://pages.cloudflare.com) → **Create a project → Connect to Git**
+2. Select the `rate-my-face` repo
+3. Set build settings:
+   - **Framework preset**: None
+   - **Build command**: `npm run cf:build`
+   - **Build output directory**: `.open-next/assets`
+4. Add environment variable:
+   - `ANTHROPIC_API_KEY` = your key (set in Settings → Environment variables)
+5. Deploy
+
+### Option B: Deploy from CLI
 
 ```bash
-vercel --team <company-team-slug>
+npm run cf:deploy
 ```
 
-Add `ANTHROPIC_API_KEY` as an environment variable in the Vercel project settings.
+You'll be prompted to log in to Cloudflare on first run. Add `ANTHROPIC_API_KEY` in the Cloudflare Pages dashboard under Settings → Environment Variables after the first deploy.
+
+### Local preview with Cloudflare runtime
+
+```bash
+npm run cf:preview
+```
 
 ## Key constraints
 
