@@ -3,8 +3,8 @@ import Anthropic from '@anthropic-ai/sdk';
 import { getSystemPrompt } from '@/lib/analysePrompt';
 import type { FaceAnalysis } from '@/types/analysis';
 
-// Required for Cloudflare Pages — runs on the edge runtime
-export const runtime = 'edge';
+// Note: no edge runtime export needed — OpenNext's cloudflare-node wrapper
+// handles the Node.js → Cloudflare conversion via nodejs_compat
 
 // Lazy-initialize the client so a missing API key doesn't crash the worker
 // on startup (which would break all routes including the homepage)
